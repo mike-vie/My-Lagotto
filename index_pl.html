@@ -655,12 +655,12 @@
         align-items: center;
         justify-content: center;
         gap: 2rem;
-        transform: translateX(100%);
-        transition: transform 0.35s ease;
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: 1000;
         padding: 2rem;
       }
-      nav.menu-open .nav-links { transform: translateX(0); }
+      nav.menu-open .nav-links { transform: translateY(0); }
       /* Fix: backdrop-filter na nav.scrolled tworzy stacking context,
          który ogranicza position:fixed do wysokości paska nawigacji.
          Wyłączamy go przy otwartym menu, żeby overlay pokrył cały ekran. */
