@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brownie – Lagotto Romagnolo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brown-900: #1A0D08;
+      --brown-800: #2D1810;
+      --brown-700: #4A2818;
+      --brown-600: #6B3A22;
+      --brown-500: #8B5230;
+      --brown-400: #B87040;
+      --brown-300: #D4965E;
+      --brown-200: #E8C09A;
+      --brown-100: #F4DFC8;
+      --brown-50:  #FBF4EC;
+      --white: #FFFFFF;
+      --gray-100: #F5F5F5;
+      --gray-200: #E8E8E8;
+      --gray-500: #888;
+      --black: #0A0A0A;
+      --accent: #C4713D;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 40px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0.9rem 3rem;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    nav.scrolled .nav-logo { color: var(--brown-800); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav.scrolled .nav-links a { color: var(--brown-600); }
+    .nav-links a:hover { color: var(--white); }
+    nav.scrolled .nav-links a:hover { color: var(--accent); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      height: 100vh; min-height: 700px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .hero-left {
+      position: relative;
+      background: var(--brown-900);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 4rem 5rem;
+      z-index: 1;
+    }
+    .hero-left::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--brown-900) 40%, transparent 100%);
+      z-index: -1;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(196,113,61,0.18);
+      border: 1px solid rgba(196,113,61,0.35);
+      color: var(--brown-300);
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 0.45rem 1rem; border-radius: 50px;
+      margin-bottom: 2rem;
+      width: fit-content;
+    }
+    .hero-tag::before { content: '🐾'; font-size: 0.85rem; }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(5rem, 10vw, 9rem);
+      color: var(--white);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    .hero-name span {
+      display: block;
+      color: var(--brown-300);
+      font-style: italic;
+    }
+    .hero-desc {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      max-width: 360px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.9rem 2rem; border-radius: 50px;
+      text-decoration: none;
+      width: fit-content;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { background: var(--brown-400); transform: translateY(-2px); }
+    .hero-cta-arrow { font-size: 1.1rem; transition: transform 0.2s; }
+    .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .hero-right::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, var(--brown-900) 0%, transparent 30%);
+    }
+
+    .hero-scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 4rem;
+      display: flex; align-items: center; gap: 1rem;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      z-index: 2;
+    }
+    .hero-scroll-hint::before {
+      content: '';
+      display: block; width: 40px; height: 1px;
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* ─── STATS BAR ─── */
+    .stats-bar {
+      background: var(--brown-800);
+      display: grid; grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-item {
+      padding: 2rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem; color: var(--brown-200);
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ─── SECTION STRUCTURE ─── */
+    .section-header {
+      display: flex; align-items: flex-start;
+      gap: 3rem; margin-bottom: 4rem;
+    }
+    .section-number {
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.6rem;
+      white-space: nowrap;
+    }
+    .section-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      color: var(--brown-800);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .section-heading em { font-style: italic; color: var(--accent); }
+    .section-sub {
+      font-size: 1rem; font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.8;
+      max-width: 480px;
+      margin-top: 1rem;
+    }
+
+    /* ─── BREED SECTION ─── */
+    #rasse {
+      padding: 8rem 3rem;
+      max-width: 1300px; margin: 0 auto;
+    }
+    .breed-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 6rem;
+      align-items: start;
+    }
+    .breed-text {
+      font-size: 1.05rem; font-weight: 300;
+      color: #444; line-height: 1.9;
+    }
+    .breed-text p { margin-bottom: 1.4rem; }
+    .breed-text strong { font-weight: 600; color: var(--brown-700); }
+
+    .breed-chips {
+      display: flex; flex-wrap: wrap; gap: 0.6rem;
+      margin: 2.5rem 0;
+    }
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--brown-50);
+      border: 1px solid var(--brown-100);
+      color: var(--brown-700);
+      font-size: 0.8rem; font-weight: 600;
+      padding: 0.5rem 1rem; border-radius: 50px;
+    }
+
+    .breed-photo {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .breed-photo img {
+      width: 100%; height: 500px;
+      object-fit: cover; display: block;
+    }
+    .breed-card {
+      background: var(--brown-800);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.85rem; font-weight: 300; line-height: 1.7;
+    }
+    .breed-card strong { color: var(--brown-200); font-weight: 500; }
+
+    /* ─── DIVIDER ─── */
+    .full-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gray-200) 20%, var(--gray-200) 80%, transparent);
+      margin: 0 3rem;
+    }
+
+    /* ─── ADVENTURES ─── */
+    #abenteuer { padding: 8rem 3rem; max-width: 1300px; margin: 0 auto; }
+
+    .story-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 2rem;
+      background: var(--brown-50);
+    }
+    .story-card.dark { background: var(--brown-900); }
+    .story-card.flip { direction: rtl; }
+    .story-card.flip > * { direction: ltr; }
+
+    .story-img {
+      position: relative; overflow: hidden;
+    }
+    .story-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.6s ease;
+    }
+    .story-card:hover .story-img img { transform: scale(1.04); }
+    .story-badge {
+      position: absolute; top: 1.5rem; left: 1.5rem;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 50px;
+    }
+
+    .story-content {
+      padding: 3.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .story-emoji { font-size: 2rem; margin-bottom: 1.2rem; display: block; }
+    .story-cat {
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .story-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+      color: var(--brown-800);
+    }
+    .story-card.dark .story-title { color: var(--brown-100); }
+    .story-title em { font-style: italic; color: var(--accent); }
+    .story-text {
+      font-size: 0.95rem; font-weight: 300;
+      color: #555; line-height: 1.85;
+    }
+    .story-card.dark .story-text { color: rgba(255,255,255,0.5); }
+    .story-text p { margin-bottom: 0.8rem; }
+    .story-quote {
+      margin-top: 1.5rem;
+      padding: 1rem 1.2rem;
+      border-left: 2px solid var(--accent);
+      background: rgba(196,113,61,0.07);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.9rem; font-style: italic;
+      color: var(--brown-600);
+    }
+    .story-card.dark .story-quote {
+      background: rgba(196,113,61,0.12);
+      color: var(--brown-200);
+    }
+
+    /* ─── GALLERY ─── */
+    #galerie {
+      background: var(--black);
+      padding: 8rem 3rem;
+    }
+    #galerie .section-number { color: var(--brown-300); }
+    #galerie .section-heading { color: var(--white); }
+    #galerie .section-sub { color: rgba(255,255,255,0.4); }
+
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1rem;
+      margin-top: 4rem;
+    }
+    .gallery-masonry .g-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-masonry .g-item img {
+      width: 100%; display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-masonry .g-item:hover img { transform: scale(1.05); }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end;
+      padding: 1.2rem 1.4rem;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span {
+      font-size: 0.85rem; font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+    }
+
+    /* ─── LIGHTBOX ─── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 88vw; max-height: 88vh;
+      object-fit: contain; border-radius: var(--radius-md);
+    }
+    #lb-close {
+      position: fixed; top: 1.5rem; right: 2rem;
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-size: 2rem;
+      line-height: 1; transition: color 0.2s;
+    }
+    #lb-close:hover { color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--brown-900);
+      padding: 5rem 3rem 3rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem; color: var(--brown-200);
+      margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 3rem; line-height: 1.7;
+    }
+    .footer-line {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 2rem;
+    }
+    .footer-copy {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left {
+        min-height: 100vh;
+        background-image: url('20240404_070140.jpg');
+        background-size: cover; background-position: center;
+      }
+      .hero-left::after {
+        background: rgba(10,8,6,0.75);
+        position: absolute; inset: 0; z-index: 0; content: '';
+      }
+      .hero-left > * { position: relative; z-index: 1; }
+      .breed-layout { grid-template-columns: 1fr; }
+      .breed-photo img { height: 350px; }
+      .story-card { grid-template-columns: 1fr; }
+      .story-card.flip { direction: ltr; }
+      .story-img { height: 300px; }
+      .gallery-masonry { columns: 2; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      nav.scrolled { padding: 0.8rem 1.5rem; }
+      .hero-left { padding: 5rem 2rem 4rem; }
+      #rasse, #abenteuer { padding: 5rem 1.5rem; }
+      #galerie { padding: 5rem 1.5rem; }
+      .story-content { padding: 2rem 1.5rem; }
+      .gallery-masonry { columns: 1; }
+      .section-header { flex-direction: column; gap: 0.5rem; }
+    }
+
+    /* ─── REVEAL ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">Brownie</a>
+  <ul class="nav-links">
+    <li><a href="#rasse">Die Rasse</a></li>
+    <li><a href="#abenteuer">Abenteuer</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Lagotto Romagnolo</div>
+    <h1 class="hero-name">
+      Brownie
+      <span>Mein Hund.</span>
+    </h1>
+    <p class="hero-desc">
+      Lockig. Neugierig. Unaufhaltsam. Ein Lagotto Romagnolo voller Energie, Liebe und Überraschungen — bereit für das nächste Abenteuer.
+    </p>
+    <a href="#abenteuer" class="hero-cta">
+      Unsere Geschichten
+      <span class="hero-cta-arrow">→</span>
+    </a>
+  </div>
+  <div class="hero-right">
+    <img src="20240404_070140.jpg" alt="Brownie mit Blumen" />
+  </div>
+  <div class="hero-scroll-hint">Scrollen</div>
+</section>
+
+<!-- ═══ STATS BAR ═══ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value">🇮🇹</div>
+    <div class="stat-label">Emilia-Romagna</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">15+</div>
+    <div class="stat-label">Jahre Lebenserwartung</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">#1</div>
+    <div class="stat-label">Trüffelhund der Welt</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">∞</div>
+    <div class="stat-label">Liebe &amp; Abenteuer</div>
+  </div>
+</div>
+
+<!-- ═══ BREED ═══ -->
+<section id="rasse">
+  <div class="section-header reveal">
+    <span class="section-number">01 — Die Rasse</span>
+    <div>
+      <h2 class="section-heading">Der <em>Lagotto</em><br/>Romagnolo</h2>
+      <p class="section-sub">Eine jahrtausendealte Rasse aus dem Herzen Italiens — heute Brownies Erbe.</p>
+    </div>
+  </div>
+
+  <div class="breed-layout">
+    <div class="reveal">
+      <div class="breed-text">
+        <p>
+          Der Lagotto Romagnolo zählt zu den ältesten Wasserrassen der Welt. Sein Name kommt vom italienischen <strong>„lago"</strong> (See) und der Region <strong>Romagna</strong> in der Emilia. Schon im Mittelalter begleiteten diese kleinen, lockigen Hunde Fischer und Jäger in den Sümpfen rund um Ravenna.
+        </p>
+        <p>
+          Als die Sümpfe im 19. Jahrhundert trockengelegt wurden, fand der Lagotto eine neue Berufung: die <strong>Trüffelsuche</strong>. Heute ist er die einzige offiziell anerkannte Rasse, die speziell für das Auffinden von Trüffeln gezüchtet wird. Seine außergewöhnliche Nase und seine Verbundenheit mit dem Menschen machen ihn dabei unschlagbar.
+        </p>
+        <p>
+          Charakterlich ist er lebhaft, hochintelligent, verspielt und tief loyal. Er liebt es zu graben, zu schnüffeln und neue Herausforderungen zu meistern. Sein dichtes, lockiges Fell — in Brownies Fall ein warmes Kastanienbraun — schützt ihn vor Wetter und Wasser.
+        </p>
+      </div>
+      <div class="breed-chips">
+        <span class="chip">🇮🇹 Ursprung: Italien</span>
+        <span class="chip">🍄 Trüffelhund</span>
+        <span class="chip">💧 Wasserhund</span>
+        <span class="chip">🧠 Hochintelligent</span>
+        <span class="chip">🦴 13–16 kg</span>
+        <span class="chip">📏 41–48 cm</span>
+        <span class="chip">🌀 Lockiges Fell</span>
+        <span class="chip">❤️ Familienfreundlich</span>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="breed-photo">
+        <img src="20240427_143301.jpg" alt="Brownie auf dem Sofa" />
+      </div>
+      <div class="breed-card">
+        <strong>Wusstest du?</strong><br/>
+        Der Lagotto ist einer der wenigen Hunde, die ihren uralten Arbeitstrieb vollständig bewahrt haben. Brownie gräbt nicht aus Langeweile — er sucht nach Trüffeln. Zumindest glaubt er das.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ═══ ADVENTURES ═══ -->
+<section id="abenteuer">
+  <div class="section-header reveal">
+    <span class="section-number">02 — Abenteuer</span>
+    <div>
+      <h2 class="section-heading">Brownies<br/><em>Geschichten</em></h2>
+      <p class="section-sub">Jedes Foto erzählt ein Kapitel. Hier sind die unvergesslichsten.</p>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <div class="story-card reveal">
+    <div class="story-img">
+      <img src="20230805_181315.jpg" alt="Brownie an der Treppe" />
+      <div class="story-badge">Aug 2023</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">🏠</span>
+      <p class="story-cat">Erkundungsdrang</p>
+      <h3 class="story-title">Der <em>Hausmeister</em></h3>
+      <div class="story-text">
+        <p>Kaum irgendwo angekommen, muss Brownie jeden Winkel inspizieren. Treppe für Treppe, Stockwerk für Stockwerk. Als Lagotto ist Kontrolle sein Beruf.</p>
+        <div class="story-quote">
+          „Ich schaue nur kurz nach dem Rechten. Man kann nie wissen, ob sich hier ein Trüffel versteckt."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="story-card dark flip reveal">
+    <div class="story-img">
+      <img src="20230805_192157.jpg" alt="Brownie am Meer" />
+      <div class="story-badge">Aug 2023</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">🌊</span>
+      <p class="story-cat">Strandurlaub</p>
+      <h3 class="story-title">Das große <em>Meer</em></h3>
+      <div class="story-text">
+        <p>Zum ersten Mal stand Brownie vor dem Meer — und er starrte es an wie das größte Rätsel der Welt. Wellen, Salz, Wind. Seine Nase arbeitete auf Hochtouren.</p>
+        <div class="story-quote">
+          „Das riecht nach sehr vielen Dingen gleichzeitig. Ich muss das näher untersuchen."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="story-card reveal">
+    <div class="story-img">
+      <img src="20230805_193449.jpg" alt="Brownie gräbt" />
+      <div class="story-badge">Aug 2023</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">⛏️</span>
+      <p class="story-cat">Nasenarbeit</p>
+      <h3 class="story-title">Der <em>Sanddetektiv</em></h3>
+      <div class="story-text">
+        <p>Was macht ein Lagotto am Strand? Er gräbt. Mit vollem Körpereinsatz, Schulter-tief im Sand. Der Trüffelinstinkt kennt keine Rücksicht auf Zuschauer.</p>
+        <div class="story-quote">
+          „Ich bin 100 % sicher, dass hier etwas Wichtiges liegt."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="story-card dark flip reveal">
+    <div class="story-img">
+      <img src="20240127_114331.jpg" alt="Brownie lächelt" />
+      <div class="story-badge">Jan 2024</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">😊</span>
+      <p class="story-cat">Zuhause</p>
+      <h3 class="story-title">Das <em>Lächeln</em>, das alles sagt</h3>
+      <div class="story-text">
+        <p>Nach einem langen, glücklichen Tag — Zunge raus, Augen strahlend, Fell perfekt. Dieses Bild ist der Grund, warum Hunde das Herz wärmen.</p>
+        <div class="story-quote">
+          „Heute war ein guter Tag. Morgen wird auch gut. Ich bestehe darauf."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5 -->
+  <div class="story-card reveal">
+    <div class="story-img">
+      <img src="20240404_070140.jpg" alt="Brownie mit Blumen" />
+      <div class="story-badge">Apr 2024</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">🌸</span>
+      <p class="story-cat">Frühlingsspaziergang</p>
+      <h3 class="story-title">Der <em>Blumensammler</em></h3>
+      <div class="story-text">
+        <p>Ein Aprilmorgen, erster Frühling. Brownie schnappte sich rosa Blüten und trug sie, als wäre das die selbstverständlichste Sache der Welt. Schwanz hoch, Blick gerade.</p>
+        <div class="story-quote">
+          „Blumen tragen? Natürlich. Ist das nicht selbstverständlich für jeden Gentleman?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="story-card dark flip reveal">
+    <div class="story-img">
+      <img src="20240427_143301.jpg" alt="Brownie auf Sofa" />
+      <div class="story-badge">Apr 2024</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">🛋️</span>
+      <p class="story-cat">Gemütlichkeit</p>
+      <h3 class="story-title">König der <em>Gemütlichkeit</em></h3>
+      <div class="story-text">
+        <p>Nach all den Abenteuern braucht auch Brownie Ruhe. Das Sofa gehört ihm — er hat es gründlich geprüft und für optimal befunden. Maximaler Komfort, mittlere Position.</p>
+        <div class="story-quote">
+          „Dieses Sofa ist meins. Ihr dürft euch dazusetzen — wenn noch Platz ist."
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="story-card reveal">
+    <div class="story-img">
+      <img src="20240507_182545.jpg" alt="Brownie Geburtstag" />
+      <div class="story-badge">Mai 2024</div>
+    </div>
+    <div class="story-content">
+      <span class="story-emoji">🎂</span>
+      <p class="story-cat">Geburtstagsfest</p>
+      <h3 class="story-title">Alles Gute, <em>Brownie!</em></h3>
+      <div class="story-text">
+        <p>Seine eigene Geburtstagstorte, ein „Happy Birthday"-Schriftzug — und Brownie wartet mit einer Disziplin, die jeden Hundetrainer beeindruckt hätte. Konzentriert. Entschlossen.</p>
+        <div class="story-quote">
+          „Ich warte nur, weil ich weiß: Diese Torte ist für mich."
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="full-divider"></div>
+
+<!-- ═══ GALLERY ═══ -->
+<section id="galerie">
+  <div style="max-width:1300px; margin:0 auto;">
+    <div class="section-header reveal">
+      <span class="section-number">03 — Galerie</span>
+      <div>
+        <h2 class="section-heading" style="color:var(--white)">Alle <em>Fotos</em></h2>
+        <p class="section-sub">Klicken zum Vergrößern.</p>
+      </div>
+    </div>
+
+    <div class="gallery-masonry reveal">
+      <div class="g-item" onclick="lb('20230805_181315.jpg','Der Hausmeister')">
+        <img src="20230805_181315.jpg" alt="Treppe" />
+        <div class="g-overlay"><span>Der Hausmeister</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20240507_182545.jpg','Alles Gute, Brownie!')">
+        <img src="20240507_182545.jpg" alt="Geburtstag" />
+        <div class="g-overlay"><span>Alles Gute, Brownie! 🎂</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20230805_192157.jpg','Das große Meer')">
+        <img src="20230805_192157.jpg" alt="Meer" />
+        <div class="g-overlay"><span>Das große Meer</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20240404_070140.jpg','Der Blumensammler')">
+        <img src="20240404_070140.jpg" alt="Blumen" />
+        <div class="g-overlay"><span>Der Blumensammler 🌸</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20230805_193449.jpg','Der Sanddetektiv')">
+        <img src="20230805_193449.jpg" alt="Strand" />
+        <div class="g-overlay"><span>Der Sanddetektiv ⛏️</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20240427_143301.jpg','König der Gemütlichkeit')">
+        <img src="20240427_143301.jpg" alt="Sofa" />
+        <div class="g-overlay"><span>König der Gemütlichkeit</span></div>
+      </div>
+      <div class="g-item" onclick="lb('20240127_114331.jpg','Das Lächeln')">
+        <img src="20240127_114331.jpg" alt="Lächeln" />
+        <div class="g-overlay"><span>Das Lächeln 😊</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div id="lightbox" onclick="closeLb()">
+  <button id="lb-close" onclick="closeLb()">✕</button>
+  <img id="lb-img" src="" alt="" />
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Brownie</div>
+  <p class="footer-tagline">
+    „Ein Lagotto ist kein Haustier —<br/>er ist ein Lebensgefährte."<br/><br/>
+    Mit ❤️ gewidmet unserem Brownie
+  </p>
+  <div class="footer-line"></div>
+  <p class="footer-copy">Lagotto Romagnolo &bull; Brownie &bull; 🍫 Das lockige Abenteuer</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Lightbox
+  function lb(src, title) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lb-img').alt = title;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLb() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), 80);
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => revealObs.observe(el));
+</script>
+</body>
+</html>
