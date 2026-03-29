@@ -520,6 +520,13 @@
         padding: 2rem;
       }
       nav.menu-open .nav-links { transform: translateX(0); }
+      /* Fix: backdrop-filter auf nav.scrolled erzeugt einen Stacking-Context,
+         der position:fixed Kinder auf die Nav-Höhe beschränkt.
+         Beim offenen Menü deaktivieren, damit das Overlay den ganzen Viewport abdeckt. */
+      nav.menu-open {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
       .nav-links li { list-style: none; }
       .nav-links a {
         font-size: 1.1rem;

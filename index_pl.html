@@ -661,6 +661,13 @@
         padding: 2rem;
       }
       nav.menu-open .nav-links { transform: translateX(0); }
+      /* Fix: backdrop-filter na nav.scrolled tworzy stacking context,
+         który ogranicza position:fixed do wysokości paska nawigacji.
+         Wyłączamy go przy otwartym menu, żeby overlay pokrył cały ekran. */
+      nav.menu-open {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
       .nav-links li { list-style: none; }
       .nav-links a {
         font-size: 1.1rem;
