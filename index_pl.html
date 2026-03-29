@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,7 +60,7 @@
       text-decoration: none;
     }
     nav.scrolled .nav-logo { color: var(--brown-800); }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 0.8rem; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
@@ -240,7 +240,7 @@
     }
 
     /* ─── BREED SECTION ─── */
-    #rasse {
+    #rasa {
       padding: 8rem 3rem;
       max-width: 1300px; margin: 0 auto;
     }
@@ -296,7 +296,7 @@
     }
 
     /* ─── ADVENTURES ─── */
-    #abenteuer { padding: 8rem 3rem; max-width: 1300px; margin: 0 auto; }
+    #przygody { padding: 8rem 3rem; max-width: 1300px; margin: 0 auto; }
 
     .story-card {
       display: grid;
@@ -369,136 +369,12 @@
       color: var(--brown-200);
     }
 
-    /* ─── GALLERY ─── */
-    #galerie {
-      background: var(--black);
-      padding: 8rem 3rem;
-    }
-    #galerie .section-number { color: var(--brown-300); }
-    #galerie .section-heading { color: var(--white); }
-    #galerie .section-sub { color: rgba(255,255,255,0.4); }
-
-    .gallery-masonry {
-      columns: 3;
-      column-gap: 1rem;
-      margin-top: 4rem;
-    }
-    .gallery-masonry .g-item {
-      break-inside: avoid;
-      margin-bottom: 1rem;
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      position: relative;
-      cursor: pointer;
-    }
-    .gallery-masonry .g-item img {
-      width: 100%; display: block;
-      transition: transform 0.5s ease;
-    }
-    .gallery-masonry .g-item:hover img { transform: scale(1.05); }
-    .g-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-      opacity: 0; transition: opacity 0.3s;
-      display: flex; align-items: flex-end;
-      padding: 1.2rem 1.4rem;
-    }
-    .g-item:hover .g-overlay { opacity: 1; }
-    .g-overlay span {
-      font-size: 0.85rem; font-weight: 500;
-      color: rgba(255,255,255,0.9);
-      font-family: 'DM Serif Display', serif;
-      font-style: italic;
-    }
-
-    /* ─── LIGHTBOX ─── */
-    #lightbox {
-      display: none; position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.95);
-      align-items: center; justify-content: center;
-      cursor: zoom-out;
-    }
-    #lightbox.open { display: flex; }
-    #lightbox img {
-      max-width: 88vw; max-height: 88vh;
-      object-fit: contain; border-radius: var(--radius-md);
-    }
-    #lb-close {
-      position: fixed; top: 1.5rem; right: 2rem;
-      background: none; border: none; cursor: pointer;
-      color: rgba(255,255,255,0.6); font-size: 2rem;
-      line-height: 1; transition: color 0.2s;
-    }
-    #lb-close:hover { color: var(--white); }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--brown-900);
-      padding: 5rem 3rem 3rem;
-      text-align: center;
-    }
-    .footer-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3rem; color: var(--brown-200);
-      margin-bottom: 1rem;
-    }
-    .footer-tagline {
-      font-size: 1rem; font-weight: 300;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 3rem; line-height: 1.7;
-    }
-    .footer-line {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin-bottom: 2rem;
-    }
-    .footer-copy {
-      font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.2);
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 1024px) {
-      #hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left {
-        min-height: 100vh;
-        background-image: url('20240404_070140.jpg');
-        background-size: cover; background-position: center;
-      }
-      .hero-left::after {
-        background: rgba(10,8,6,0.75);
-        position: absolute; inset: 0; z-index: 0; content: '';
-      }
-      .hero-left > * { position: relative; z-index: 1; }
-      .breed-layout { grid-template-columns: 1fr; }
-      .breed-photo img { height: 350px; }
-      .story-card { grid-template-columns: 1fr; }
-      .story-card.flip { direction: ltr; }
-      .story-img { height: 300px; }
-      .gallery-masonry { columns: 2; }
-      .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.5rem; }
-      nav.scrolled { padding: 0.8rem 1.5rem; }
-      .hero-left { padding: 5rem 2rem 4rem; }
-      #rasse, #abenteuer { padding: 5rem 1.5rem; }
-      #galerie { padding: 5rem 1.5rem; }
-      #werbung { padding: 5rem 1.5rem; }
-      .story-content { padding: 2rem 1.5rem; }
-      .gallery-masonry { columns: 1; }
-      .section-header { flex-direction: column; gap: 0.5rem; }
-      .ad-skills { grid-template-columns: 1fr; }
-    }
-
-    /* ─── WERBUNG SECTION ─── */
-    #werbung {
+    /* ─── REKLAMA SECTION ─── */
+    #reklama {
       padding: 8rem 3rem;
       background: linear-gradient(135deg, var(--brown-50) 0%, #fff8f2 50%, var(--brown-50) 100%);
     }
-    #werbung .inner { max-width: 1300px; margin: 0 auto; }
+    #reklama .inner { max-width: 1300px; margin: 0 auto; }
 
     .ad-layout {
       display: grid;
@@ -632,9 +508,130 @@
     }
     .ad-fee-note strong { color: var(--brown-800); }
 
+    /* ─── GALLERY ─── */
+    #galeria {
+      background: var(--black);
+      padding: 8rem 3rem;
+    }
+    #galeria .section-number { color: var(--brown-300); }
+    #galeria .section-heading { color: var(--white); }
+    #galeria .section-sub { color: rgba(255,255,255,0.4); }
+
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 1rem;
+      margin-top: 4rem;
+    }
+    .gallery-masonry .g-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-masonry .g-item img {
+      width: 100%; display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-masonry .g-item:hover img { transform: scale(1.05); }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end;
+      padding: 1.2rem 1.4rem;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span {
+      font-size: 0.85rem; font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+    }
+
+    /* ─── LIGHTBOX ─── */
+    #lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.95);
+      align-items: center; justify-content: center;
+      cursor: zoom-out;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 88vw; max-height: 88vh;
+      object-fit: contain; border-radius: var(--radius-md);
+    }
+    #lb-close {
+      position: fixed; top: 1.5rem; right: 2rem;
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,0.6); font-size: 2rem;
+      line-height: 1; transition: color 0.2s;
+    }
+    #lb-close:hover { color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--brown-900);
+      padding: 5rem 3rem 3rem;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem; color: var(--brown-200);
+      margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 3rem; line-height: 1.7;
+    }
+    .footer-line {
+      height: 1px;
+      background: rgba(255,255,255,0.07);
+      margin-bottom: 2rem;
+    }
+    .footer-copy {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left {
+        min-height: 100vh;
+        background-image: url('20240404_070140.jpg');
+        background-size: cover; background-position: center;
+      }
+      .hero-left::after {
+        background: rgba(10,8,6,0.75);
+        position: absolute; inset: 0; z-index: 0; content: '';
+      }
+      .hero-left > * { position: relative; z-index: 1; }
+      .breed-layout { grid-template-columns: 1fr; }
+      .breed-photo img { height: 350px; }
+      .story-card { grid-template-columns: 1fr; }
+      .story-card.flip { direction: ltr; }
+      .story-img { height: 300px; }
+      .gallery-masonry { columns: 2; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
       .ad-layout { grid-template-columns: 1fr; }
       .ad-skills { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.5rem; }
+      nav.scrolled { padding: 0.8rem 1.5rem; }
+      .hero-left { padding: 5rem 2rem 4rem; }
+      #rasa, #przygody { padding: 5rem 1.5rem; }
+      #galeria { padding: 5rem 1.5rem; }
+      #reklama { padding: 5rem 1.5rem; }
+      .story-content { padding: 2rem 1.5rem; }
+      .gallery-masonry { columns: 1; }
+      .section-header { flex-direction: column; gap: 0.5rem; }
+      .ad-skills { grid-template-columns: 1fr; }
     }
 
     /* ─── REVEAL ANIMATION ─── */
@@ -655,11 +652,11 @@
 <nav id="navbar">
   <a class="nav-logo" href="#hero">Brownie</a>
   <ul class="nav-links">
-    <li><a href="#rasse">Die Rasse</a></li>
-    <li><a href="#abenteuer">Abenteuer</a></li>
-    <li><a href="#werbung">Werbung 🌟</a></li>
-    <li><a href="#galerie">Galerie</a></li>
-    <li><a class="lang-switch" href="index_pl.html">🇵🇱 PL</a></li>
+    <li><a href="#rasa">Rasa</a></li>
+    <li><a href="#przygody">Przygody</a></li>
+    <li><a href="#reklama">Reklama 🌟</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a class="lang-switch" href="index.html">🇩🇪 DE</a></li>
   </ul>
 </nav>
 
@@ -669,20 +666,20 @@
     <div class="hero-tag">Lagotto Romagnolo</div>
     <h1 class="hero-name">
       Brownie
-      <span>Mein Hund.</span>
+      <span>Mój pies.</span>
     </h1>
     <p class="hero-desc">
-      Lockig. Neugierig. Unaufhaltsam. Ein Lagotto Romagnolo voller Energie, Liebe und Überraschungen — bereit für das nächste Abenteuer.
+      Kędzierzawy. Ciekawski. Niepohamowany. Lagotto Romagnolo pełen energii, miłości i niespodzianek — zawsze gotowy na kolejną przygodę.
     </p>
-    <a href="#abenteuer" class="hero-cta">
-      Unsere Geschichten
+    <a href="#przygody" class="hero-cta">
+      Nasze Historie
       <span class="hero-cta-arrow">→</span>
     </a>
   </div>
   <div class="hero-right">
-    <img src="20240404_070140.jpg" alt="Brownie mit Blumen" />
+    <img src="20240404_070140.jpg" alt="Brownie z kwiatami" />
   </div>
-  <div class="hero-scroll-hint">Scrollen</div>
+  <div class="hero-scroll-hint">Przewiń</div>
 </section>
 
 <!-- ═══ STATS BAR ═══ -->
@@ -693,25 +690,25 @@
   </div>
   <div class="stat-item">
     <div class="stat-value">15+</div>
-    <div class="stat-label">Jahre Lebenserwartung</div>
+    <div class="stat-label">Lat Życia</div>
   </div>
   <div class="stat-item">
     <div class="stat-value">#1</div>
-    <div class="stat-label">Trüffelhund der Welt</div>
+    <div class="stat-label">Pies Truflowy Świata</div>
   </div>
   <div class="stat-item">
     <div class="stat-value">∞</div>
-    <div class="stat-label">Liebe &amp; Abenteuer</div>
+    <div class="stat-label">Miłość &amp; Przygody</div>
   </div>
 </div>
 
-<!-- ═══ BREED ═══ -->
-<section id="rasse">
+<!-- ═══ RASA ═══ -->
+<section id="rasa">
   <div class="section-header reveal">
-    <span class="section-number">01 — Die Rasse</span>
+    <span class="section-number">01 — Rasa</span>
     <div>
-      <h2 class="section-heading">Der <em>Lagotto</em><br/>Romagnolo</h2>
-      <p class="section-sub">Eine jahrtausendealte Rasse aus dem Herzen Italiens — heute Brownies Erbe.</p>
+      <h2 class="section-heading">Lagotto<br/><em>Romagnolo</em></h2>
+      <p class="section-sub">Tysiącletnia rasa z serca Włoch — dziś dziedzictwo Browniego.</p>
     </div>
   </div>
 
@@ -719,34 +716,34 @@
     <div class="reveal">
       <div class="breed-text">
         <p>
-          Der Lagotto Romagnolo zählt zu den ältesten Wasserrassen der Welt. Sein Name kommt vom italienischen <strong>„lago"</strong> (See) und der Region <strong>Romagna</strong> in der Emilia. Schon im Mittelalter begleiteten diese kleinen, lockigen Hunde Fischer und Jäger in den Sümpfen rund um Ravenna.
+          Lagotto Romagnolo należy do jednych z najstarszych ras wodnych na świecie. Nazwa pochodzi od włoskiego słowa <strong>„lago"</strong> (jezioro) i regionu <strong>Romagna</strong> w Emilii. Już w średniowieczu te małe, kędzierzawe psy towarzyszyły rybakom i myśliwym na bagnach wokół Rawenny.
         </p>
         <p>
-          Als die Sümpfe im 19. Jahrhundert trockengelegt wurden, fand der Lagotto eine neue Berufung: die <strong>Trüffelsuche</strong>. Heute ist er die einzige offiziell anerkannte Rasse, die speziell für das Auffinden von Trüffeln gezüchtet wird. Seine außergewöhnliche Nase und seine Verbundenheit mit dem Menschen machen ihn dabei unschlagbar.
+          Gdy w XIX wieku osuszono bagna, Lagotto znalazło nowe powołanie: <strong>poszukiwanie trufli</strong>. Dziś jest jedyną oficjalnie uznaną rasą hodowaną specjalnie do znajdowania trufli. Niezwykły węch i silna więź z człowiekiem czynią go w tej roli niezastąpionym.
         </p>
         <p>
-          Charakterlich ist er lebhaft, hochintelligent, verspielt und tief loyal. Er liebt es zu graben, zu schnüffeln und neue Herausforderungen zu meistern. Sein dichtes, lockiges Fell — in Brownies Fall ein warmes Kastanienbraun — schützt ihn vor Wetter und Wasser.
+          Charakterem jest żywy, wysoce inteligentny, zabawny i głęboko lojalny. Uwielbia kopać, węszyć i mierzyć się z nowymi wyzwaniami. Gęsta, kędzierzawa sierść — w przypadku Browniego ciepły kasztanowy brąz — chroni go przed pogodą i wodą.
         </p>
       </div>
       <div class="breed-chips">
-        <span class="chip">🇮🇹 Ursprung: Italien</span>
-        <span class="chip">🍄 Trüffelhund</span>
-        <span class="chip">💧 Wasserhund</span>
-        <span class="chip">🧠 Hochintelligent</span>
+        <span class="chip">🇮🇹 Pochodzenie: Włochy</span>
+        <span class="chip">🍄 Pies Truflowy</span>
+        <span class="chip">💧 Pies Wodny</span>
+        <span class="chip">🧠 Bardzo Inteligentny</span>
         <span class="chip">🦴 13–16 kg</span>
         <span class="chip">📏 41–48 cm</span>
-        <span class="chip">🌀 Lockiges Fell</span>
-        <span class="chip">❤️ Familienfreundlich</span>
+        <span class="chip">🌀 Kędzierzawa Sierść</span>
+        <span class="chip">❤️ Przyjazny Rodzinom</span>
       </div>
     </div>
 
     <div class="reveal">
       <div class="breed-photo">
-        <img src="20240427_143301.jpg" alt="Brownie auf dem Sofa" />
+        <img src="20240427_143301.jpg" alt="Brownie na kanapie" />
       </div>
       <div class="breed-card">
-        <strong>Wusstest du?</strong><br/>
-        Der Lagotto ist einer der wenigen Hunde, die ihren uralten Arbeitstrieb vollständig bewahrt haben. Brownie gräbt nicht aus Langeweile — er sucht nach Trüffeln. Zumindest glaubt er das.
+        <strong>Czy wiedziałeś?</strong><br/>
+        Lagotto jest jednym z niewielu psów, które w pełni zachowały swój pradawny instynkt pracy. Brownie nie kopie z nudów — on szuka trufli. Przynajmniej tak mu się wydaje.
       </div>
     </div>
   </div>
@@ -754,30 +751,30 @@
 
 <div class="full-divider"></div>
 
-<!-- ═══ ADVENTURES ═══ -->
-<section id="abenteuer">
+<!-- ═══ PRZYGODY ═══ -->
+<section id="przygody">
   <div class="section-header reveal">
-    <span class="section-number">02 — Abenteuer</span>
+    <span class="section-number">02 — Przygody</span>
     <div>
-      <h2 class="section-heading">Brownies<br/><em>Geschichten</em></h2>
-      <p class="section-sub">Jedes Foto erzählt ein Kapitel. Hier sind die unvergesslichsten.</p>
+      <h2 class="section-heading">Historie<br/><em>Browniego</em></h2>
+      <p class="section-sub">Każde zdjęcie opowiada rozdział. Oto te najniezapomnialsze.</p>
     </div>
   </div>
 
   <!-- 1 -->
   <div class="story-card reveal">
     <div class="story-img">
-      <img src="20230805_181315.jpg" alt="Brownie an der Treppe" />
-      <div class="story-badge">Aug 2023</div>
+      <img src="20230805_181315.jpg" alt="Brownie na schodach" />
+      <div class="story-badge">Sie 2023</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">🏠</span>
-      <p class="story-cat">Erkundungsdrang</p>
-      <h3 class="story-title">Der <em>Hausmeister</em></h3>
+      <p class="story-cat">Inspekcja Terenu</p>
+      <h3 class="story-title">Dozorca <em>Budynku</em></h3>
       <div class="story-text">
-        <p>Kaum irgendwo angekommen, muss Brownie jeden Winkel inspizieren. Treppe für Treppe, Stockwerk für Stockwerk. Als Lagotto ist Kontrolle sein Beruf.</p>
+        <p>Ledwo gdzieś przybędzie, a już Brownie musi zbadać każdy kąt. Schody za schodami, piętro za piętrem. Jako Lagotto, kontrola to jego zawód.</p>
         <div class="story-quote">
-          „Ich schaue nur kurz nach dem Rechten. Man kann nie wissen, ob sich hier ein Trüffel versteckt."
+          „Tylko zerkam, czy wszystko w porządku. Nigdy nic nie wiadomo — może tu jest trufla."
         </div>
       </div>
     </div>
@@ -786,17 +783,17 @@
   <!-- 2 -->
   <div class="story-card dark flip reveal">
     <div class="story-img">
-      <img src="20230805_192157.jpg" alt="Brownie am Meer" />
-      <div class="story-badge">Aug 2023</div>
+      <img src="20230805_192157.jpg" alt="Brownie nad morzem" />
+      <div class="story-badge">Sie 2023</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">🌊</span>
-      <p class="story-cat">Strandurlaub</p>
-      <h3 class="story-title">Das große <em>Meer</em></h3>
+      <p class="story-cat">Wakacje nad Morzem</p>
+      <h3 class="story-title">Wielkie <em>Morze</em></h3>
       <div class="story-text">
-        <p>Zum ersten Mal stand Brownie vor dem Meer — und er starrte es an wie das größte Rätsel der Welt. Wellen, Salz, Wind. Seine Nase arbeitete auf Hochtouren.</p>
+        <p>Po raz pierwszy Brownie stanął przed morzem — i wpatrywał się weń jak w największą zagadkę świata. Fale, sól, wiatr. Nos pracował na pełnych obrotach.</p>
         <div class="story-quote">
-          „Das riecht nach sehr vielen Dingen gleichzeitig. Ich muss das näher untersuchen."
+          „To pachnie wieloma rzeczami jednocześnie. Muszę to dokładniej zbadać."
         </div>
       </div>
     </div>
@@ -805,17 +802,17 @@
   <!-- 3 -->
   <div class="story-card reveal">
     <div class="story-img">
-      <img src="20230805_193449.jpg" alt="Brownie gräbt" />
-      <div class="story-badge">Aug 2023</div>
+      <img src="20230805_193449.jpg" alt="Brownie kopie" />
+      <div class="story-badge">Sie 2023</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">⛏️</span>
-      <p class="story-cat">Nasenarbeit</p>
-      <h3 class="story-title">Der <em>Sanddetektiv</em></h3>
+      <p class="story-cat">Praca Nosa</p>
+      <h3 class="story-title">Detektyw <em>Piaskowy</em></h3>
       <div class="story-text">
-        <p>Was macht ein Lagotto am Strand? Er gräbt. Mit vollem Körpereinsatz, Schulter-tief im Sand. Der Trüffelinstinkt kennt keine Rücksicht auf Zuschauer.</p>
+        <p>Co robi Lagotto na plaży? Kopie. Z pełnym zaangażowaniem, po ramiona w piasku. Truflowy instynkt nie zna litości dla gapiów.</p>
         <div class="story-quote">
-          „Ich bin 100 % sicher, dass hier etwas Wichtiges liegt."
+          „Jestem w 100% pewny, że tu jest coś ważnego."
         </div>
       </div>
     </div>
@@ -824,17 +821,17 @@
   <!-- 4 -->
   <div class="story-card dark flip reveal">
     <div class="story-img">
-      <img src="20240127_114331.jpg" alt="Brownie lächelt" />
-      <div class="story-badge">Jan 2024</div>
+      <img src="20240127_114331.jpg" alt="Brownie się uśmiecha" />
+      <div class="story-badge">Sty 2024</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">😊</span>
-      <p class="story-cat">Zuhause</p>
-      <h3 class="story-title">Das <em>Lächeln</em>, das alles sagt</h3>
+      <p class="story-cat">Dom</p>
+      <h3 class="story-title"><em>Uśmiech</em>, który mówi wszystko</h3>
       <div class="story-text">
-        <p>Nach einem langen, glücklichen Tag — Zunge raus, Augen strahlend, Fell perfekt. Dieses Bild ist der Grund, warum Hunde das Herz wärmen.</p>
+        <p>Po długim, szczęśliwym dniu — język na wierzchu, oczy roziskrzone, sierść idealna. To zdjęcie jest właśnie tym, dla czego psy rozgrzewają serce.</p>
         <div class="story-quote">
-          „Heute war ein guter Tag. Morgen wird auch gut. Ich bestehe darauf."
+          „Dziś był dobry dzień. Jutro też będzie. Nalegam na to."
         </div>
       </div>
     </div>
@@ -843,17 +840,17 @@
   <!-- 5 -->
   <div class="story-card reveal">
     <div class="story-img">
-      <img src="20240404_070140.jpg" alt="Brownie mit Blumen" />
-      <div class="story-badge">Apr 2024</div>
+      <img src="20240404_070140.jpg" alt="Brownie z kwiatami" />
+      <div class="story-badge">Kwi 2024</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">🌸</span>
-      <p class="story-cat">Frühlingsspaziergang</p>
-      <h3 class="story-title">Der <em>Blumensammler</em></h3>
+      <p class="story-cat">Wiosenny Spacer</p>
+      <h3 class="story-title">Zbieracz <em>Kwiatów</em></h3>
       <div class="story-text">
-        <p>Ein Aprilmorgen, erster Frühling. Brownie schnappte sich rosa Blüten und trug sie, als wäre das die selbstverständlichste Sache der Welt. Schwanz hoch, Blick gerade.</p>
+        <p>Poranek w kwietniu, pierwsza wiosna. Brownie złapał różowe kwiatki i niósł je, jakby to była najbardziej naturalna rzecz na świecie. Ogon w górze, wzrok przed siebie.</p>
         <div class="story-quote">
-          „Blumen tragen? Natürlich. Ist das nicht selbstverständlich für jeden Gentleman?"
+          „Nosić kwiaty? Oczywiście. Czyż nie tak robi każdy dżentelmen?"
         </div>
       </div>
     </div>
@@ -862,17 +859,17 @@
   <!-- 6 -->
   <div class="story-card dark flip reveal">
     <div class="story-img">
-      <img src="20240427_143301.jpg" alt="Brownie auf Sofa" />
-      <div class="story-badge">Apr 2024</div>
+      <img src="20240427_143301.jpg" alt="Brownie na kanapie" />
+      <div class="story-badge">Kwi 2024</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">🛋️</span>
-      <p class="story-cat">Gemütlichkeit</p>
-      <h3 class="story-title">König der <em>Gemütlichkeit</em></h3>
+      <p class="story-cat">Wygoda</p>
+      <h3 class="story-title">Król <em>Wygody</em></h3>
       <div class="story-text">
-        <p>Nach all den Abenteuern braucht auch Brownie Ruhe. Das Sofa gehört ihm — er hat es gründlich geprüft und für optimal befunden. Maximaler Komfort, mittlere Position.</p>
+        <p>Po wszystkich przygodach Brownie też potrzebuje odpoczynku. Kanapa należy do niego — dokładnie ją zbadał i uznał za optymalną. Maksymalny komfort, centralna pozycja.</p>
         <div class="story-quote">
-          „Dieses Sofa ist meins. Ihr dürft euch dazusetzen — wenn noch Platz ist."
+          „Ta kanapa jest moja. Możecie usiąść — jeśli zostało miejsce."
         </div>
       </div>
     </div>
@@ -881,17 +878,17 @@
   <!-- 7 -->
   <div class="story-card reveal">
     <div class="story-img">
-      <img src="20240507_182545.jpg" alt="Brownie Geburtstag" />
-      <div class="story-badge">Mai 2024</div>
+      <img src="20240507_182545.jpg" alt="Brownie urodziny" />
+      <div class="story-badge">Maj 2024</div>
     </div>
     <div class="story-content">
       <span class="story-emoji">🎂</span>
-      <p class="story-cat">Geburtstagsfest</p>
-      <h3 class="story-title">Alles Gute, <em>Brownie!</em></h3>
+      <p class="story-cat">Przyjęcie Urodzinowe</p>
+      <h3 class="story-title">Wszystkiego Najlepszego, <em>Brownie!</em></h3>
       <div class="story-text">
-        <p>Seine eigene Geburtstagstorte, ein „Happy Birthday"-Schriftzug — und Brownie wartet mit einer Disziplin, die jeden Hundetrainer beeindruckt hätte. Konzentriert. Entschlossen.</p>
+        <p>Własny tort urodzinowy, napis „Happy Birthday" — a Brownie czeka z dyscypliną, która zachwyciłaby każdego trenera. Skupiony. Zdecydowany.</p>
         <div class="story-quote">
-          „Ich warte nur, weil ich weiß: Diese Torte ist für mich."
+          „Czekam tylko dlatego, że wiem: ten tort jest dla mnie."
         </div>
       </div>
     </div>
@@ -901,85 +898,85 @@
 
 <div class="full-divider"></div>
 
-<!-- ═══ WERBUNG ═══ -->
-<section id="werbung">
+<!-- ═══ REKLAMA ═══ -->
+<section id="reklama">
   <div class="inner">
     <div class="section-header reveal">
-      <span class="section-number">03 — Karriere</span>
+      <span class="section-number">03 — Kariera</span>
       <div>
-        <h2 class="section-heading">Brownie will<br/><em>Werbestar</em> werden</h2>
-        <p class="section-sub">Offizielles Casting-Bewerbungsschreiben. Vollkommen ernst gemeint. Na ja, fast.</p>
+        <h2 class="section-heading">Brownie chce być<br/><em>Gwiazdą</em> Reklamy</h2>
+        <p class="section-sub">Oficjalne zgłoszenie castingowe. Całkowicie poważne. No, prawie.</p>
       </div>
     </div>
 
     <div class="ad-layout reveal">
 
-      <!-- Links: Casting-Foto -->
+      <!-- Lewa: zdjęcie z castingu -->
       <div class="ad-card-main">
-        <img src="20240127_114331.jpg" alt="Brownie — Casting-Porträtfoto" />
-        <div class="ad-card-badge">⭐ Verfügbar</div>
+        <img src="20240127_114331.jpg" alt="Brownie — zdjęcie portretowe do castingu" />
+        <div class="ad-card-badge">⭐ Dostępny</div>
         <div class="ad-card-caption">
-          <div class="ad-tagline">Brownie<em>.</em><br/>Das Gesicht, das dir fehlte.</div>
-          <p>Fotogen. Charismatisch. Arbeitet für Leckerlis. Ideale Vertragsbedingungen.</p>
+          <div class="ad-tagline">Brownie<em>.</em><br/>Twarz, której Ci brakowało.</div>
+          <p>Fotogeniczny. Charyzmatyczny. Pracuje za smakołyki. Idealne warunki kontraktu.</p>
         </div>
       </div>
 
-      <!-- Rechts: Pitch + Fähigkeiten -->
+      <!-- Prawa: pitch + umiejętności -->
       <div class="ad-right">
 
         <div class="ad-pitch">
-          <div class="ad-pitch-title">Warum gerade <em>Brownie</em>?</div>
+          <div class="ad-pitch-title">Dlaczego właśnie <em>Brownie</em>?</div>
           <p>
-            Brownie weiß schon lange, dass er etwas Besonderes hat. Dieser magnetische Blick, dieser lockige Charme, dieses natürliche Talent, jeden Passanten zum Innehalten zu bringen — das ist kein Zufall. Das ist Schicksal.
+            Brownie od dawna wie, że ma to coś szczególnego. To magnetyczne spojrzenie, ten kędzierzawy urok, ten naturalny talent do zatrzymywania wzroku każdego przechodnia — to nie przypadek. To przeznaczenie.
           </p>
           <p style="margin-top: 0.8rem;">
-            Als zertifizierter Lagotto Romagnolo besitzt er die angeborene Fähigkeit, vergrabene Schätze aufzuspüren. Das richtige Produkt für den richtigen Kunden zu finden? Für Brownie ein Kinderspiel.
+            Jako certyfikowany Lagotto Romagnolo posiada wrodzoną zdolność do znajdowania skarbów ukrytych w ziemi. Znajdowanie właściwego produktu dla właściwego klienta? Dla Browniego to bułka z masłem.
           </p>
         </div>
 
         <div class="ad-skills">
           <div class="ad-skill-item">
             <span class="ad-skill-icon">📸</span>
-            <div class="ad-skill-name">Fotogenie</div>
-            <div class="ad-skill-desc">Immer bereit für ein Foto. Jeder Winkel ist ein guter Winkel.</div>
+            <div class="ad-skill-name">Fotogeniczność</div>
+            <div class="ad-skill-desc">Zawsze gotowy na fotkę. Każdy kąt to dobry kąt.</div>
           </div>
           <div class="ad-skill-item">
             <span class="ad-skill-icon">🎭</span>
-            <div class="ad-skill-name">Schauspiel</div>
-            <div class="ad-skill-desc">Kann darstellen: Freude, Überraschung und „Mmh, was für ein Futter!"</div>
+            <div class="ad-skill-name">Aktorstwo</div>
+            <div class="ad-skill-desc">Potrafi odegrać: szczęście, zaskoczenie i „och, jaka smaczna karma!"</div>
           </div>
           <div class="ad-skill-item">
             <span class="ad-skill-icon">🌸</span>
-            <div class="ad-skill-name">Requisiten</div>
-            <div class="ad-skill-desc">Blumen, Torten, Leinen — Brownie meistert alles mit Würde.</div>
+            <div class="ad-skill-name">Rekwizyty</div>
+            <div class="ad-skill-desc">Kwiaty, torty, smycze — Brownie radzi sobie ze wszystkim.</div>
           </div>
           <div class="ad-skill-item">
             <span class="ad-skill-icon">🤝</span>
-            <div class="ad-skill-name">Teamfähigkeit</div>
-            <div class="ad-skill-desc">Arbeitet hervorragend im Team. Vorausgesetzt, es gibt Leckerlis.</div>
+            <div class="ad-skill-name">Praca Zespołowa</div>
+            <div class="ad-skill-desc">Świetnie współpracuje. Pod warunkiem, że jest smakołyk.</div>
           </div>
           <div class="ad-skill-item">
             <span class="ad-skill-icon">👃</span>
-            <div class="ad-skill-name">Nase Nr. 1 Europas</div>
-            <div class="ad-skill-desc">Ideal für Parfüm- und Hundefutterwerbung.</div>
+            <div class="ad-skill-name">Nos #1 w Europie</div>
+            <div class="ad-skill-desc">Doskonały do reklam perfum i jedzenia dla psów.</div>
           </div>
           <div class="ad-skill-item">
             <span class="ad-skill-icon">💤</span>
-            <div class="ad-skill-name">Lifestyle-Aufnahmen</div>
-            <div class="ad-skill-desc">Meister der Gemütlichkeit. Werbung für Sofas, Decken und Komfort.</div>
+            <div class="ad-skill-name">Zdjęcia Lifestyle</div>
+            <div class="ad-skill-desc">Mistrz relaksu. Reklamy kanap, koców i komfortu.</div>
           </div>
         </div>
 
         <div class="ad-quote-box">
           <blockquote>
-            „Ich habe schon viele Hunde in Werbung gesehen. Keiner hatte das, was ich habe. Nämlich diese Locken."
+            „Widziałem już wiele psów w reklamach. Żaden nie miał tego, co ja mam. Czyli te kędziory."
           </blockquote>
-          <div class="ad-quote-attribution">— Brownie, Kandidat für die Werbung</div>
+          <div class="ad-quote-attribution">— Brownie, kandydat do reklamy</div>
         </div>
 
         <div class="ad-fee-note">
-          💼 <strong>Honorar:</strong> Brownie arbeitet nicht für Geld.<br/>
-          Er akzeptiert ausschließlich Zahlung in <strong>Leckerlis, Kuscheleinheiten und Spaziergängen</strong>.
+          💼 <strong>Honorarium:</strong> Brownie nie pracuje za pieniądze.<br/>
+          Przyjmuje wyłącznie płatności w <strong>smakołykach, przytulasach i spacerach</strong>.
         </div>
 
       </div>
@@ -989,45 +986,45 @@
 
 <div class="full-divider"></div>
 
-<!-- ═══ GALLERY ═══ -->
-<section id="galerie">
+<!-- ═══ GALERIA ═══ -->
+<section id="galeria">
   <div style="max-width:1300px; margin:0 auto;">
     <div class="section-header reveal">
-      <span class="section-number">04 — Galerie</span>
+      <span class="section-number">04 — Galeria</span>
       <div>
-        <h2 class="section-heading" style="color:var(--white)">Alle <em>Fotos</em></h2>
-        <p class="section-sub">Klicken zum Vergrößern.</p>
+        <h2 class="section-heading" style="color:var(--white)">Wszystkie <em>Zdjęcia</em></h2>
+        <p class="section-sub">Kliknij, aby powiększyć.</p>
       </div>
     </div>
 
     <div class="gallery-masonry reveal">
-      <div class="g-item" onclick="lb('20230805_181315.jpg','Der Hausmeister')">
-        <img src="20230805_181315.jpg" alt="Treppe" />
-        <div class="g-overlay"><span>Der Hausmeister</span></div>
+      <div class="g-item" onclick="lb('20230805_181315.jpg','Dozorca Budynku')">
+        <img src="20230805_181315.jpg" alt="Schody" />
+        <div class="g-overlay"><span>Dozorca Budynku</span></div>
       </div>
-      <div class="g-item" onclick="lb('20240507_182545.jpg','Alles Gute, Brownie!')">
-        <img src="20240507_182545.jpg" alt="Geburtstag" />
-        <div class="g-overlay"><span>Alles Gute, Brownie! 🎂</span></div>
+      <div class="g-item" onclick="lb('20240507_182545.jpg','Wszystkiego Najlepszego, Brownie!')">
+        <img src="20240507_182545.jpg" alt="Urodziny" />
+        <div class="g-overlay"><span>Wszystkiego Najlepszego! 🎂</span></div>
       </div>
-      <div class="g-item" onclick="lb('20230805_192157.jpg','Das große Meer')">
-        <img src="20230805_192157.jpg" alt="Meer" />
-        <div class="g-overlay"><span>Das große Meer</span></div>
+      <div class="g-item" onclick="lb('20230805_192157.jpg','Wielkie Morze')">
+        <img src="20230805_192157.jpg" alt="Morze" />
+        <div class="g-overlay"><span>Wielkie Morze</span></div>
       </div>
-      <div class="g-item" onclick="lb('20240404_070140.jpg','Der Blumensammler')">
-        <img src="20240404_070140.jpg" alt="Blumen" />
-        <div class="g-overlay"><span>Der Blumensammler 🌸</span></div>
+      <div class="g-item" onclick="lb('20240404_070140.jpg','Zbieracz Kwiatów')">
+        <img src="20240404_070140.jpg" alt="Kwiaty" />
+        <div class="g-overlay"><span>Zbieracz Kwiatów 🌸</span></div>
       </div>
-      <div class="g-item" onclick="lb('20230805_193449.jpg','Der Sanddetektiv')">
-        <img src="20230805_193449.jpg" alt="Strand" />
-        <div class="g-overlay"><span>Der Sanddetektiv ⛏️</span></div>
+      <div class="g-item" onclick="lb('20230805_193449.jpg','Detektyw Piaskowy')">
+        <img src="20230805_193449.jpg" alt="Plaża" />
+        <div class="g-overlay"><span>Detektyw Piaskowy ⛏️</span></div>
       </div>
-      <div class="g-item" onclick="lb('20240427_143301.jpg','König der Gemütlichkeit')">
-        <img src="20240427_143301.jpg" alt="Sofa" />
-        <div class="g-overlay"><span>König der Gemütlichkeit</span></div>
+      <div class="g-item" onclick="lb('20240427_143301.jpg','Król Wygody')">
+        <img src="20240427_143301.jpg" alt="Kanapa" />
+        <div class="g-overlay"><span>Król Wygody</span></div>
       </div>
-      <div class="g-item" onclick="lb('20240127_114331.jpg','Das Lächeln')">
-        <img src="20240127_114331.jpg" alt="Lächeln" />
-        <div class="g-overlay"><span>Das Lächeln 😊</span></div>
+      <div class="g-item" onclick="lb('20240127_114331.jpg','Uśmiech')">
+        <img src="20240127_114331.jpg" alt="Uśmiech" />
+        <div class="g-overlay"><span>Uśmiech 😊</span></div>
       </div>
     </div>
   </div>
@@ -1043,11 +1040,11 @@
 <footer>
   <div class="footer-logo">Brownie</div>
   <p class="footer-tagline">
-    „Ein Lagotto ist kein Haustier —<br/>er ist ein Lebensgefährte."<br/><br/>
-    Mit ❤️ gewidmet unserem Brownie
+    „Lagotto to nie zwierzę domowe —<br/>to towarzysz życia."<br/><br/>
+    Z ❤️ dedykowane naszemu Browniemu
   </p>
   <div class="footer-line"></div>
-  <p class="footer-copy">Lagotto Romagnolo &bull; Brownie &bull; 🍫 Das lockige Abenteuer</p>
+  <p class="footer-copy">Lagotto Romagnolo &bull; Brownie &bull; 🍫 Kędzierzawa Przygoda</p>
 </footer>
 
 <script>
