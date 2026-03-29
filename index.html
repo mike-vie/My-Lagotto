@@ -91,6 +91,30 @@
     }
     nav.scrolled .lang-switch:hover { background: var(--brown-100); }
 
+    /* ─── HAMBURGER ─── */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 44px; height: 44px;
+      background: none; border: none;
+      cursor: pointer; padding: 12px 8px;
+      z-index: 1001;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+    nav.scrolled .nav-toggle span { background: var(--brown-800); }
+    nav.menu-open .nav-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.menu-open .nav-toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     /* ─── HERO ─── */
     #hero {
       position: relative;
@@ -480,6 +504,40 @@
       .gallery-masonry { columns: 2; }
       .stats-bar { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--brown-900);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.35s ease;
+        z-index: 1000;
+        padding: 2rem;
+      }
+      nav.menu-open .nav-links { transform: translateX(0); }
+      .nav-links li { list-style: none; }
+      .nav-links a {
+        font-size: 1.1rem;
+        color: rgba(255,255,255,0.8);
+        letter-spacing: 0.15em;
+        min-height: 44px;
+        display: flex; align-items: center;
+      }
+      .nav-links a:hover { color: var(--white); }
+      .lang-switch {
+        background: rgba(255,255,255,0.1) !important;
+        border-color: rgba(255,255,255,0.25) !important;
+        color: rgba(255,255,255,0.8) !important;
+        font-size: 0.9rem;
+        padding: 0.6rem 1.6rem;
+        min-height: 44px;
+      }
+    }
     @media (max-width: 640px) {
       nav { padding: 1rem 1.5rem; }
       nav.scrolled { padding: 0.8rem 1.5rem; }
@@ -490,7 +548,29 @@
       .story-content { padding: 2rem 1.5rem; }
       .gallery-masonry { columns: 1; }
       .section-header { flex-direction: column; gap: 0.5rem; }
+      .ad-skills { grid-template-columns: 1fr 1fr; }
+      .hero-cta { min-height: 44px; padding: 0.9rem 1.8rem; }
+      .chip { min-height: 36px; }
+      #lb-close { min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .stat-item { padding: 1.2rem 1rem; }
+      .stat-value { font-size: 1.5rem; }
+      .stat-label { font-size: 0.65rem; }
+      .story-img { height: 220px; }
+      .story-content { padding: 1.5rem 1.2rem; }
+      .story-title { font-size: 1.4rem; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-logo { font-size: 2.2rem; }
+      .footer-tagline { font-size: 0.9rem; margin-bottom: 2rem; }
+    }
+    @media (max-width: 400px) {
+      .hero-name { font-size: clamp(3.5rem, 15vw, 5rem); }
+      .hero-desc { font-size: 0.9rem; }
       .ad-skills { grid-template-columns: 1fr; }
+      .ad-pitch { padding: 1.5rem 1.2rem; }
+      .ad-quote-box { padding: 1.5rem 1.4rem; }
+      .ad-fee-note { padding: 1rem 1.2rem; font-size: 0.78rem; }
     }
 
     /* ─── WERBUNG SECTION ─── */
@@ -636,6 +716,9 @@
       .ad-layout { grid-template-columns: 1fr; }
       .ad-skills { grid-template-columns: 1fr 1fr; }
     }
+    @media (max-width: 640px) {
+      #werbung .inner { padding: 0; }
+    }
 
     /* ─── REVEAL ANIMATION ─── */
     .reveal {
@@ -654,13 +737,18 @@
 <!-- ═══ NAV ═══ -->
 <nav id="navbar">
   <a class="nav-logo" href="#hero">Brownie</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#rasse">Die Rasse</a></li>
     <li><a href="#abenteuer">Abenteuer</a></li>
     <li><a href="#werbung">Werbung 🌟</a></li>
     <li><a href="#galerie">Galerie</a></li>
     <li><a class="lang-switch" href="index_pl.html">🇵🇱 PL</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
 <!-- ═══ HERO ═══ -->
@@ -1055,6 +1143,24 @@
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hamburger menu
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('menu-open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+    navToggle.setAttribute('aria-label', isOpen ? 'Menü schließen' : 'Menü öffnen');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('menu-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Menü öffnen');
+      document.body.style.overflow = '';
+    });
   });
 
   // Lightbox
